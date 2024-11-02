@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 public class Environnement {
 
     private static Environnement instance;
+    private Terrain terrain;
 
     private int heigh;
     private int width;
@@ -16,6 +17,7 @@ public class Environnement {
     public Environnement(int heigh, int width) {
         this.heigh = heigh;
         this.width = width;
+        this.terrain = new Terrain();
     }
 
     public static Environnement getInstance() {
@@ -23,5 +25,9 @@ public class Environnement {
             instance = new Environnement(2048, 4096);
         }
         return instance;
+    }
+
+    public Terrain getTerrain(){
+        return this.terrain;
     }
 }
