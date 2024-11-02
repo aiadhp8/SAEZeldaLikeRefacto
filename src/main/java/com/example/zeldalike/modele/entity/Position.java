@@ -8,12 +8,14 @@ import java.awt.*;
 public class Position {
     private final IntegerProperty x;
     private final IntegerProperty y;
-    private Rectangle hitbox;
+    private final int height;
+    private final int width;
 
-    public Position(int x, int y, Rectangle hitbox) {
+    public Position(int x, int y, int height, int width) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        this.hitbox = hitbox;
+        this.height = height;
+        this.width = width;
     }
 
     public int getX() {
@@ -40,9 +42,27 @@ public class Position {
         return y;
     }
 
-    public boolean collision(Position p) {
-        return hitbox.intersects(p.hitbox);
+    public int getHeight() {
+        return height;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public boolean collision(Position p) {
+        return this.getX() < p.getX() + p.getWidth() &&
+                this.getX() + this.getWidth() > p.getX() &&
+                this.getY() < p.getY() + p.getHeight() &&
+                this.getY() + this.getHeight() > p.getY();
+    }
+
+    public double distance(Position p) {
+        int deltaX = this.getX() - p.getX();
+        int deltaY = this.getY() - p.getY();
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
+
 
     @Override
     public String toString() {
