@@ -71,7 +71,7 @@ public abstract class ObjetMobile extends Entity {
                 deltaY = -1;
                 break;
             case 5:
-                return; // Pas de mouvement
+                return;
         }
 
         move(deltaX, deltaY);
