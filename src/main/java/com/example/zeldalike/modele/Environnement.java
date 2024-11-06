@@ -3,8 +3,11 @@ package com.example.zeldalike.modele;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.Ennemis;
+import com.example.zeldalike.modele.entity.objetMobile.projectile.ProjectileMunition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.Iterator;
 
 public class Environnement {
 
@@ -19,17 +22,20 @@ public class Environnement {
     private Joueur joueur;
     private ObservableList<Ennemis> ennemis;
     private ObservableList<ObjetRecuperables> objet;
+    private ObservableList<ProjectileMunition> projoMunition;
 
-    private static int compteur;
+    private int compteur;
 
     public Environnement(int height, int width) {
         this.height = height;
         this.width = width;
         this.terrain = new Terrain();
         this.carteBFS = new CarteBFS(this.terrain, this.joueur);
+        this.joueur =;
         this.ennemis = FXCollections.observableArrayList();
         this.objet = FXCollections.observableArrayList();
-        compteur = 0;
+        this.projoMunition = FXCollections.observableArrayList();
+        this.compteur = 0;
     }
 
     public static Environnement getInstance() {
@@ -69,6 +75,37 @@ public class Environnement {
 
     public ObservableList<ObjetRecuperables> getObjet() {
         return objet;
+    }
+
+    public ObservableList<ProjectileMunition> getProjoMunition() {
+        return projoMunition;
+    }
+
+    public void updateProjectiles() {
+
+        Iterator<Munition> iterator = this.munitionObservableList.iterator();
+        while (iterator.hasNext()) {
+            Munition munition = iterator.next();
+            munition.move();
+
+
+            boolean removed = false;
+            for (Ennemis ennemi : this.getEnv().getEnnemis()) {
+                if (munition.collidesWith(ennemi)) {
+                    ennemi.subirDegats(munition.getDegats());
+
+                    iterator.remove(); // Utilisez l'iterator pour éviter ConcurrentModificationException
+                    removed = true;
+                    break; // Sortir de la boucle des ennemis, car la munition a été supprimée
+                }
+            }
+            if (removed) {
+                continue; // Si la munition a été supprimée, passez à la suivante
+            }
+
+        }
+        // Supprimer les projectiles qui sortent du terrain
+        munitionObservableList.removeIf(munition -> !this.getTerrain().estDansTerrain(munition.getP().getX(), munition.getP().getY()));
     }
 
     public void unTour() {
