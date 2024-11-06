@@ -7,7 +7,10 @@ public abstract class Projectile extends ObjetMobile {
     protected int degats;
 
     public Projectile(Position position, int direction, int vitesse, int degats) {
-        super(position, direction, vitesse);
+        super(position, vitesse);
         this.degats = degats;
+        this.setDirection(direction);
     }
+
+
 }
