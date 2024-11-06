@@ -71,6 +71,8 @@ public class Environnement {
         return objet;
     }
 
+    public CarteBFS getCarteBFS(){return this.carteBFS;}
+
     public void unTour() {
         this.joueur.move();
         this.carteBFS.miseAJourCarte();
