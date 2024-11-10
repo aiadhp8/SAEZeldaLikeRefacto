@@ -1,8 +1,9 @@
-package com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.Arme.gun;
+package com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun;
 
-import com.example.zeldalike.modele.Arme.Arme;
-import com.example.zeldalike.modele.Joueur;
-import com.example.zeldalike.modele.Position;
+
+import com.example.zeldalike.modele.entity.Position;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 
 import java.util.ArrayList;
 

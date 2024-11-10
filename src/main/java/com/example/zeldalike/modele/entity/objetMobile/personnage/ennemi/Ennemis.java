@@ -8,9 +8,29 @@ public abstract class Ennemis extends Personnage {
     private int def;
     private boolean bouclierActif;
 
-    public Ennemis(Position position, int direction, int vitesse, int hp, int def) {
-        super(position, direction, vitesse, hp);
+    public Ennemis(Position position, int vitesse, int hp, int def) {
+        super(position, vitesse, hp);
         this.def = def;
         this.bouclierActif = false;
     }
+
+    public boolean isBouclierActif() {
+        return bouclierActif;
+    }
+
+    public int getDef() {
+        return def;
+    }
+
+    public void setBouclierActif(boolean bouclierActif) {
+        this.bouclierActif = bouclierActif;
+    }
+
+    public void agir(){}
+
+    public abstract void compétence();
+
+    public abstract void désacCompétence();
+
+    public void dropObjet() {}
 }

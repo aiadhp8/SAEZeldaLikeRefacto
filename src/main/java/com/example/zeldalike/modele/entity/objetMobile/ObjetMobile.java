@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 
 public abstract class ObjetMobile extends Entity {
-    private IntegerProperty direction;
+    private final IntegerProperty direction;
     private int vitesse;
 
     public ObjetMobile(Position position, int vitesse) {

@@ -85,7 +85,11 @@ public class Terrain {
         this.tailleHauteur = 64;
     }
 
-    public int tailleTerrain() {
+    public int getTailleLargeur() {
+        return tailleLargeur;
+    }
+
+    public int getTailleTerrain() {
         return carteTerrain.length;
     }
 

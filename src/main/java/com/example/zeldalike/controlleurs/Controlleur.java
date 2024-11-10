@@ -1,9 +1,10 @@
 package com.example.zeldalike.controlleurs;
 
-import com.example.zeldalike.modele.Arme.Poing;
-import com.example.zeldalike.modele.Arme.gun.Gun;
-import com.example.zeldalike.modele.Arme.gun.Munition;
 import com.example.zeldalike.modele.*;
+import com.example.zeldalike.modele.entity.Position;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Poing;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Gun;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.mob.Macarena;
 import com.example.zeldalike.vues.InventaireVue;
 import com.example.zeldalike.vues.JoueurVue;
 import com.example.zeldalike.vues.TerrrainVue;
@@ -45,7 +46,6 @@ public class Controlleur implements Initializable {
     private Pane carte_interaction;
     private long lastTime;
     private JoueurVue joueurVue;
-    private Environnement env;
     private Timeline gameLoop;
     private int temps_gameloop;
     private boolean cooldown = true;
@@ -53,13 +53,13 @@ public class Controlleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.env = new Environnement(2048, 4096);
-        TerrrainVue terrrainVue = new TerrrainVue(terrain_affichage, carte_interaction, this.env.getTerrain(), this.env.getJ1());
+        Environnement env = Environnement.getInstance();
+        TerrrainVue terrrainVue = new TerrrainVue(terrain_affichage, carte_interaction, env.getTerrain(), env.getJoueur());
         terrain_affichage.setOnKeyPressed(this::onKeyPressed);
         terrain_affichage.setOnKeyReleased(this::onKeyReleased);
         terrain_affichage.setFocusTraversable(true);
         terrrainVue.creeMap();
-        joueurVue = new JoueurVue(this.env.getJ1(), this.env.getJ1().getArme());
+        joueurVue = new JoueurVue(env.getJoueur(), env.getJoueur().getArme());
 
         info_joueur.getChildren().add(joueurVue.getCoeurN1());
         info_joueur.getChildren().add(joueurVue.getCoeurN2());
@@ -69,8 +69,8 @@ public class Controlleur implements Initializable {
         carte_interaction.getChildren().add(joueurVue.getArmeView());
 
 
-        this.env.getJ1().directionProperty().addListener(((observable, oldValue, newValue) -> {
-            if (this.env.getJ1().getArme() instanceof Poing) {
+        env.getJoueur().directionProperty().addListener(((observable, oldValue, newValue) -> {
+            if (env.getJoueur().getArme() instanceof Poing) {
                 switch ((int) newValue) {
                     case 8:
                         this.joueurVue.getMac().setImage(this.joueurVue.getSpriteUp());
@@ -85,7 +85,7 @@ public class Controlleur implements Initializable {
                         this.joueurVue.getMac().setImage(this.joueurVue.getSpriteRight());
                         break;
                 }
-            } else if (this.env.getJ1().getArme() instanceof Gun) {
+            } else if (env.getJoueur().getArme() instanceof Gun) {
                 switch ((int) newValue) {
                     case 8:
                         this.joueurVue.getMac().setImage(this.joueurVue.getSpriteGunUp());
@@ -105,37 +105,37 @@ public class Controlleur implements Initializable {
         }));
         MonObservateurEnnemis observateurlisteennemi = new MonObservateurEnnemis(carte_interaction);
         MonObservateurMunition observateurMunition = new MonObservateurMunition(carte_interaction);
-        this.env.getEnnemis().addListener(observateurlisteennemi);
-        this.env.getJ1().getMunitionObservableList().addListener(observateurMunition);
-        Macarena maca = new Macarena(new Position(3175, 515), this.env);
-        this.env.ajouterEnnemis(maca);
-        BusinessMan man1 = new BusinessMan(new Position(640, 640), this.env);
-        this.env.ajouterEnnemis(man1);
-        BusinessMan man2 = new BusinessMan(new Position(3175, 560), this.env);
-        this.env.ajouterEnnemis(man2);
-        BusinessMan man3 = new BusinessMan(new Position(3000, 540), this.env);
-        this.env.ajouterEnnemis(man3);
-        BusinessMan man4 = new BusinessMan(new Position(1179, 1722), this.env);
-        this.env.ajouterEnnemis(man4);
-        BusinessMan man5 = new BusinessMan(new Position(759, 1692), this.env);
-        this.env.ajouterEnnemis(man5);
-        Boss pumkin = new BossSamurai(new Position(192, 1888), this.env);
-        this.env.ajouterEnnemis(pumkin);
+        env.getEnnemis().addListener(observateurlisteennemi);
+        env.getProjoMunition().addListener(observateurMunition);
+        Macarena maca = new Macarena(new Position(3175, 515, 32,32), this.inv);
+        env.ajouterEnnemis(maca);
+        BusinessMan man1 = new BusinessMan(new Position(640, 640), this.inv);
+        this.inv.ajouterEnnemis(man1);
+        BusinessMan man2 = new BusinessMan(new Position(3175, 560), this.inv);
+        this.inv.ajouterEnnemis(man2);
+        BusinessMan man3 = new BusinessMan(new Position(3000, 540), this.inv);
+        this.inv.ajouterEnnemis(man3);
+        BusinessMan man4 = new BusinessMan(new Position(1179, 1722), this.inv);
+        this.inv.ajouterEnnemis(man4);
+        BusinessMan man5 = new BusinessMan(new Position(759, 1692), this.inv);
+        this.inv.ajouterEnnemis(man5);
+        Boss pumkin = new BossSamurai(new Position(192, 1888), this.inv);
+        this.inv.ajouterEnnemis(pumkin);
 
         MonObservateurObjet observateurlisteobjet = new MonObservateurObjet(carte_interaction);
-        this.env.getObjet().addListener(observateurlisteobjet);
+        this.inv.getObjet().addListener(observateurlisteobjet);
         Position PP1 = new Position(3775, 1345);
         Position PP2 = new Position(400, 64);
-        Munition p1 = new Munition(PP1, this.env.getJ1(), 0);
-        Munition p2 = new Munition(PP2, this.env.getJ1(), 0);
-        this.env.ajouterObjet(p1);
-        this.env.ajouterObjet(new PotionVitale(new Position(600, 455)));
-        this.env.ajouterObjet(new PotionVitale(new Position(3640, 440)));
-        this.env.ajouterObjet(new PotionVitale(new Position(256, 64)));
-        this.env.ajouterObjet(new PotionVitale(new Position(3910, 1749)));
+        Munition p1 = new Munition(PP1, this.inv.getJ1(), 0);
+        Munition p2 = new Munition(PP2, this.inv.getJ1(), 0);
+        this.inv.ajouterObjet(p1);
+        this.inv.ajouterObjet(new PotionVitale(new Position(600, 455)));
+        this.inv.ajouterObjet(new PotionVitale(new Position(3640, 440)));
+        this.inv.ajouterObjet(new PotionVitale(new Position(256, 64)));
+        this.inv.ajouterObjet(new PotionVitale(new Position(3910, 1749)));
 
-        this.env.ajouterObjet(new ChaussuresHydrophobes(new Position(2500, 1299)));
-        this.env.ajouterObjet(p2);
+        this.inv.ajouterObjet(new ChaussuresHydrophobes(new Position(2500, 1299)));
+        this.inv.ajouterObjet(p2);
         System.out.println(p1.getIdObjet() + "muni 1");
         System.out.println(p2.getIdObjet() + "muni 2");
 
@@ -146,7 +146,7 @@ public class Controlleur implements Initializable {
         this.inv = new InventaireVue(inventairepane, inventaireobjets, env.getJ1().getSac());
 
 
-        System.out.println(this.env.getJ1().getSac().toString());
+        System.out.println(this.inv.getJ1().getSac().toString());
 
 
         terrain_affichage.requestFocus();

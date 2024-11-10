@@ -1,9 +1,6 @@
-package com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.Arme.gun;
+package com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun;
 
-import com.example.zeldalike.modele.Joueur;
-import com.example.zeldalike.modele.ObjetRecuperables;
-import com.example.zeldalike.modele.Personnage;
-import com.example.zeldalike.modele.Position;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
 
 import java.awt.*;
 
@@ -12,13 +9,11 @@ public class Munition extends ObjetRecuperables {
     private int degats;
     private int vitesse;
     private String idMunition;
-    private Joueur j;
     private int direction;
 
 
-    public Munition(Position position, Joueur j, int direction) {
+    public Munition(Position position, int direction) {
         super(position);
-        this.j = j;
         this.degats = 4;
         this.vitesse = 8;
         id++;

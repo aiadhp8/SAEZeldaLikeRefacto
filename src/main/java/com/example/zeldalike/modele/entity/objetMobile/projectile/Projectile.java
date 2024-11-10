@@ -12,5 +12,7 @@ public abstract class Projectile extends ObjetMobile {
         this.setDirection(direction);
     }
 
-
+    public int getDegats() {
+        return degats;
+    }
 }

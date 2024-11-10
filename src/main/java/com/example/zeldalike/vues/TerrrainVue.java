@@ -1,8 +1,9 @@
 package com.example.zeldalike.vues;
 
 import com.example.zeldalike.Main;
-import com.example.zeldalike.modele.Joueur;
+
 import com.example.zeldalike.modele.Terrain;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;

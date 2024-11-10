@@ -57,10 +57,10 @@ public class Position {
                 this.getY() + this.getHeight() > p.getY();
     }
 
-    public double distance(Position p) {
+    public int distance(Position p) {
         int deltaX = this.getX() - p.getX();
         int deltaY = this.getY() - p.getY();
-        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
 

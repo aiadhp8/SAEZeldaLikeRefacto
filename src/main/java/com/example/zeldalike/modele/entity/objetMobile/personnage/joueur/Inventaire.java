@@ -1,7 +1,11 @@
 package com.example.zeldalike.modele.entity.objetMobile.personnage.joueur;
 
+import com.example.zeldalike.modele.Environnement;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.Clef;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
-import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.Arme.Arme;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Munition;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.potion.PotionVitale;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +72,7 @@ public class Inventaire {
     public HashMap<String, Integer> getQuantiteTout() {
         HashMap<String, Integer> quantites = new HashMap<>();
         int quantitePotion = getQuantiteObjetDeType(PotionVitale.class);
-        int quantiteCle = getQuantiteObjetDeType(Cle.class);
+        int quantiteCle = getQuantiteObjetDeType(Clef.class);
         int quantiteMunition = getQuantiteObjetDeType(Munition.class);
 
         if (quantitePotion > 0) quantites.put("PotionVitale", quantitePotion);
@@ -81,7 +85,7 @@ public class Inventaire {
     public void utiliserPotion() {
         ObjetRecuperables potion = getUnObjetDeType(PotionVitale.class);
         if (potion instanceof PotionVitale) {
-            this.j.recevoirSoins(((PotionVitale) potion).getPouvoir());
+            Environnement.getInstance().getJoueur().recevoirSoins(((PotionVitale) potion).getPouvoir());
             this.retireInventaire(potion);
         }
     }

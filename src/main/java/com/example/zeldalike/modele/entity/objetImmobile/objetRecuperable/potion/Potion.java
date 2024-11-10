@@ -10,4 +10,8 @@ public abstract class Potion extends ObjetRecuperables {
         super(position);
         this.valeurpouvoir = valeurpouvoir;
     }
+
+    public int getPouvoir(){
+        return valeurpouvoir;
+    }
 }

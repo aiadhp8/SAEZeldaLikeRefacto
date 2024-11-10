@@ -1,11 +1,16 @@
 package com.example.zeldalike.modele;
 
+import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Munition;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.Personnage;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Inventaire;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.Ennemis;
 import com.example.zeldalike.modele.entity.objetMobile.projectile.ProjectileMunition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.junit.Ignore;
 
 import java.util.Iterator;
 
@@ -30,8 +35,8 @@ public class Environnement {
         this.height = height;
         this.width = width;
         this.terrain = new Terrain();
-        this.carteBFS = new CarteBFS(this.terrain, this.joueur);
-        this.joueur =;
+        this.carteBFS = new CarteBFS();
+        this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(null));
         this.ennemis = FXCollections.observableArrayList();
         this.objet = FXCollections.observableArrayList();
         this.projoMunition = FXCollections.observableArrayList();
@@ -73,7 +78,7 @@ public class Environnement {
         this.objet.remove(objet);
     }
 
-    public ObservableList<ObjetRecuperables> getObjet() {
+    public ObservableList<ObjetRecuperables> getObjets() {
         return objet;
     }
 
@@ -83,15 +88,15 @@ public class Environnement {
 
     public void updateProjectiles() {
 
-        Iterator<Munition> iterator = this.munitionObservableList.iterator();
+        Iterator<ProjectileMunition> iterator = this.projoMunition.iterator();
         while (iterator.hasNext()) {
-            Munition munition = iterator.next();
+            ProjectileMunition munition = iterator.next();
             munition.move();
 
 
             boolean removed = false;
-            for (Ennemis ennemi : this.getEnv().getEnnemis()) {
-                if (munition.collidesWith(ennemi)) {
+            for (Ennemis ennemi : instance.getEnnemis()) {
+                if (munition.collision(ennemi)) {
                     ennemi.subirDegats(munition.getDegats());
 
                     iterator.remove(); // Utilisez l'iterator pour éviter ConcurrentModificationException
@@ -105,14 +110,14 @@ public class Environnement {
 
         }
         // Supprimer les projectiles qui sortent du terrain
-        munitionObservableList.removeIf(munition -> !this.getTerrain().estDansTerrain(munition.getP().getX(), munition.getP().getY()));
+        projoMunition.removeIf(munition -> !this.getTerrain().estDansTerrain(munition.getPosition().getX(), munition.getPosition().getY()));
     }
 
     public void unTour() {
         this.joueur.move();
         this.carteBFS.miseAJourCarte();
-        this.getJ1().interact();
-        this.getJ1().updateProjectiles();
+        this.joueur.interact();
+        this.updateProjectiles();
 
         if (!ennemis.isEmpty()) {
             for (int i = 0; i < ennemis.size(); i++) {
@@ -125,9 +130,23 @@ public class Environnement {
                 }
             }
         }
-        verifierCollisions();
+        collisionMob();
         compteur++;
-        cooldown++;
+    }
 
+    public void collisionMob() {
+
+        for (Ennemis ennemi : ennemis) {
+            if (compteur % 150 == 0) {
+                joueur.setSubirCoup(true);
+            }
+            if (ennemi.collision(joueur)) {
+                Personnage.repousserPersonnages(joueur, ennemi);
+                if (joueur.peutSubirCoup()) {
+                    joueur.subirDegats(1);
+                    joueur.setSubirCoup(false);
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.zeldalike.modele.entity.objetMobile.personnage;
 
+import com.example.zeldalike.modele.Environnement;
 import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetMobile.ObjetMobile;
 import javafx.beans.property.IntegerProperty;
@@ -31,37 +32,56 @@ public abstract class Personnage extends ObjetMobile {
     }
 
     public static void repousserPersonnages(Personnage p1, Personnage p2) {
-        int dx = p1.getP().getX() - p2.getP().getX();
-        int dy = p1.getP().getY() - p2.getP().getY();
-        int distance = p1.distanceEntreDeuxPersonnages(p1, p2);
+        int dx = p1.getPosition().getX() - p2.getPosition().getX();
+        int dy = p1.getPosition().getY() - p2.getPosition().getY();
+        int distance = p1.distance(p2);
+
         if (distance == 0) return;
 
         int repulsionForce = 16;
-        int repulsionX = (dx / distance) * repulsionForce;
-        int repulsionY = (dy / distance) * repulsionForce;
+        int[] forcesRepulsion = calculerForcesRepulsion(dx, dy, distance, repulsionForce);
+        int repulsionX = forcesRepulsion[0];
+        int repulsionY = forcesRepulsion[1];
 
+        deplacerPersonnagesSiPossible(p1, p2, repulsionX, repulsionY);
+    }
+
+    private static int[] calculerForcesRepulsion(int dx, int dy, int distance, int force) {
+        int repulsionX = (dx / distance) * force;
+        int repulsionY = (dy / distance) * force;
+        return new int[]{repulsionX, repulsionY};
+    }
+
+    private static void deplacerPersonnagesSiPossible(Personnage p1, Personnage p2, int repulsionX, int repulsionY) {
         boolean p1CanMove = canMove(p1, repulsionX, repulsionY);
         boolean p2CanMove = canMove(p2, -repulsionX, -repulsionY);
 
         if (p1CanMove && p2CanMove) {
-            p1.moveDe(repulsionX, repulsionY);
-            p2.moveDe(-repulsionX, -repulsionY);
+            deplacerPersonnage(p1, repulsionX, repulsionY);
+            deplacerPersonnage(p2, -repulsionX, -repulsionY);
         } else if (p1CanMove) {
-            p1.moveDe(repulsionX, repulsionY);
+            deplacerPersonnage(p1, repulsionX, repulsionY);
         } else if (p2CanMove) {
-            p2.moveDe(-repulsionX, -repulsionY);
+            deplacerPersonnage(p2, -repulsionX, -repulsionY);
         }
     }
 
-    private static boolean canMove(Personnage p, int deltaX, int deltaY) {
-        int x = p.getP().getX();
-        int y = p.getP().getY();
-        int hitbox = p.getHitbox();
+    private static void deplacerPersonnage(Personnage personnage, int dx, int dy) {
+        personnage.getPosition().setX(personnage.getPosition().getX() + dx);
+        personnage.getPosition().setY(personnage.getPosition().getY() + dy);
+    }
 
-        return terrain.estAutorisé(x + deltaX, y + deltaY) &&
-                terrain.estAutorisé(x + hitbox + deltaX, y + deltaY) &&
-                terrain.estAutorisé(x + deltaX, y + hitbox + deltaY) &&
-                terrain.estAutorisé(x + hitbox + deltaX, y + hitbox + deltaY);
+
+    private static boolean canMove(Personnage p, int deltaX, int deltaY) {
+        int x = p.getPosition().getX();
+        int y = p.getPosition().getY();
+        int height = p.getHeight();
+        int width = p.getWidth();
+
+        return Environnement.getInstance().getTerrain().estAutorisé(x + deltaX, y + deltaY) &&
+                Environnement.getInstance().getTerrain().estAutorisé(x + height + deltaX, y + deltaY) &&
+                Environnement.getInstance().getTerrain().estAutorisé(x + deltaX, y + width + deltaY) &&
+                Environnement.getInstance().getTerrain().estAutorisé(x + height + deltaX, y + width + deltaY);
     }
 
     public abstract void subirDegats(int degats);

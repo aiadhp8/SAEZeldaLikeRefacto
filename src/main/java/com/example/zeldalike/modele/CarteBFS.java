@@ -10,32 +10,28 @@ public class CarteBFS {
 
     private static final int PASSAGE_INTERDIT = 64;
     private final int[] carte;
-    private final Joueur joueur;
-    private final Terrain terrain;
     private final int largeur;
     private final int distanceMax;
 
-    public CarteBFS(Terrain terrain, Joueur joueur) {
-        this.joueur = joueur;
-        this.terrain = terrain;
-        this.carte = new int[terrain.tailleTerrain()];
+    public CarteBFS() {
+        this.carte = new int[Environnement.getInstance().getTerrain().getTailleTerrain()];
         this.distanceMax = 11;
-        this.largeur = terrain.getTailleLargeur();
+        this.largeur = Environnement.getInstance().getTerrain().getTailleLargeur();
         reinitCarte();
     }
 
     public void reinitCarte() {
         for (int i = 0; i < this.carte.length; i++) {
-            this.carte[i] = terrain.codeCaseI(i) == 2 ? distanceMax + 1 : PASSAGE_INTERDIT;
+            this.carte[i] = Environnement.getInstance().getTerrain().codeCaseI(i) == 2 ? distanceMax + 1 : PASSAGE_INTERDIT;
         }
     }
 
     public void miseAJourCarte() {
         reinitCarte();
 
-        int startX = joueur.getP().getX() + joueur.getHitbox();
-        int startY = joueur.getP().getY() + joueur.getHitbox();
-        int startIdx = terrain.getIndiceCaseSousPosition(startX, startY);
+        int startX = Environnement.getInstance().getJoueur().getPosition().getX() + Environnement.getInstance().getJoueur().getPosition().getHeight();
+        int startY = Environnement.getInstance().getJoueur().getPosition().getY() + Environnement.getInstance().getJoueur().getPosition().getWidth();
+        int startIdx = Environnement.getInstance().getTerrain().getIndiceCaseSousPosition(startX, startY);
 
         LinkedList<Integer> marques = new LinkedList<>();
         LinkedList<Integer> temp = new LinkedList<>();
@@ -64,7 +60,7 @@ public class CarteBFS {
     }
 
     private void addValidAdjacentIndices(LinkedList<Integer> marques, LinkedList<Integer> temp, int current, int distance) {
-        for (int indice : terrain.getIndicesAdjacentsAvecIndice(current)) {
+        for (int indice : Environnement.getInstance().getTerrain().getIndicesAdjacentsAvecIndice(current)) {
             if (isIndiceEligible(marques, temp, indice, distance)) {
                 marques.addFirst(indice);
             }
@@ -96,7 +92,7 @@ public class CarteBFS {
     }
 
     public int indiceMinimumVal(int indicePosition) {
-        List<Integer> adj = terrain.getIndicesAdjacentsAvecIndice(indicePosition);
+        List<Integer> adj = Environnement.getInstance().getTerrain().getIndicesAdjacentsAvecIndice(indicePosition);
         return adj.isEmpty() ? -1 : findIndiceWithMinimumValue(adj);
     }
 

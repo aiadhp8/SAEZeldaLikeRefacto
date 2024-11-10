@@ -23,7 +23,7 @@ public abstract class Entity {
         return this.position.collision(e.getPosition());
     }
 
-    public double distance(Entity e){
+    public int distance(Entity e){
         return this.position.distance(e.getPosition());
     }
 }

@@ -1,8 +1,9 @@
 package com.example.zeldalike.vues;
 
 import com.example.zeldalike.Main;
-import com.example.zeldalike.modele.Arme.Arme;
-import com.example.zeldalike.modele.Joueur;
+
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

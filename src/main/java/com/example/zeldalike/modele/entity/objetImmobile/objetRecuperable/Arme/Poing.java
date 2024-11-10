@@ -1,14 +1,17 @@
 package com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme;
 
-import com.example.zeldalike.modele.Joueur;
-import com.example.zeldalike.modele.Personnage;
+
+import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.Personnage;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.Ennemis;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 
 import java.util.ArrayList;
 
 public class Poing extends Arme {
-    public Poing(Joueur joueur) {
-        super(30, joueur);
+    public Poing(Position position, int attaque) {
+        super(position, attaque);
     }
 
 
@@ -16,7 +19,7 @@ public class Poing extends Arme {
     public void faireUneAttaque() {
         ArrayList<Personnage> ennemisProche = this.toucherPersonnage();
         for (Personnage personnage : ennemisProche) {
-            hit(personnage);
+            hit((Ennemis) personnage);
         }
     }
 

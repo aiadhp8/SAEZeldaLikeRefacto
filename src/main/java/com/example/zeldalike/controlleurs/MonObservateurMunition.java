@@ -2,11 +2,12 @@ package com.example.zeldalike.controlleurs;
 
 import com.example.zeldalike.Main;
 import com.example.zeldalike.modele.Arme.gun.Munition;
+import com.example.zeldalike.modele.entity.objetMobile.projectile.ProjectileMunition;
 import com.example.zeldalike.vues.MunitionVue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 
-public class MonObservateurMunition implements ListChangeListener<Munition> {
+public class MonObservateurMunition implements ListChangeListener<ProjectileMunition> {
     private Pane panneauDeJeu;
     private MunitionVue munitionVue;
     private int directionPrecedente;
@@ -18,9 +19,9 @@ public class MonObservateurMunition implements ListChangeListener<Munition> {
     }
 
     @Override
-    public void onChanged(Change<? extends Munition> change) {
+    public void onChanged(Change<? extends ProjectileMunition> change) {
         while (change.next()) {
-            for (Munition munition : change.getAddedSubList()) {
+            for (ProjectileMunition munition : change.getAddedSubList()) {
                 if (munition.getDirection() == 5) {
                     munition.setDirection(directionPrecedente);
                 }

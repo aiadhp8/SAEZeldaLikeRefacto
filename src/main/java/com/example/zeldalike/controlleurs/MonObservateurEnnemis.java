@@ -1,7 +1,7 @@
 package com.example.zeldalike.controlleurs;
 
 import com.example.zeldalike.Main;
-import com.example.zeldalike.modele.*;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.Ennemis;
 import com.example.zeldalike.vues.BossSamuraiVue;
 import com.example.zeldalike.vues.EnnemisVue;
 import javafx.collections.ListChangeListener;
