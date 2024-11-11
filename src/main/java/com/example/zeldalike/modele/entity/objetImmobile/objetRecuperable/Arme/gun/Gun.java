@@ -1,18 +1,18 @@
 package com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun;
 
 
+import com.example.zeldalike.modele.Environnement;
 import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
+import com.example.zeldalike.modele.entity.objetMobile.projectile.ProjectileMunition;
 
 import java.util.ArrayList;
 
 public class Gun extends Arme {
-    private ArrayList<Munition> listemunitions;
 
-    public Gun(Joueur j) {
-        super(50, j);
-        this.listemunitions = new ArrayList<Munition>();
+    public Gun() {
+        super(new Position(0,0,0,0), 50);
     }
 
    /* public boolean aMuni(){
@@ -34,43 +34,16 @@ public class Gun extends Arme {
     }
 */
 
-    public ArrayList<Munition> getListeMunitions() {
-        return listemunitions;
-    }
-
-    public void setListeMunitions(ArrayList<Munition> listemunitions) {
-        this.listemunitions = listemunitions;
-    }
-
-    public void ajouterMunition(Munition munition) {
-        this.listemunitions.add(munition);
-    }
-
     @Override
     public void faireUneAttaque() {
-        if (!this.listemunitions.isEmpty()) {
-            // Récupère la première munition de la liste
-            System.out.println(this.listemunitions);
-            Munition mune = this.listemunitions.get(0);
+        if (Environnement.getInstance().getJoueur().getInventaire().getQuantiteObjetDeType(Munition.class) > 0) {
 
+            Joueur joueur = Environnement.getInstance().getJoueur();
+            ProjectileMunition projo = new ProjectileMunition(new Position(joueur.getPosition().getX(), joueur.getPosition().getY(), 32, 32), joueur.getDirection());
+            Environnement.getInstance().getProjoMunition().add(projo);
 
-            // Met à jour la position de la munition
-            mune.setP(new Position(this.getJoueur().getP().getX(), this.getJoueur().getP().getY()));
-            // Met à jour la direction de la munition
-            mune.setDirection(this.getJoueur().getPositionPre());
-
-            // Ajoute la munition à la liste de munitions du joueur seulement si elle n'y est pas déjà
-            if (!this.getJoueur().getMunitionObservableList().contains(mune)) {
-                this.getJoueur().getMunitionObservableList().add(mune);
-
-            } else {
-
-            }
-
-            // Retire la munition de la liste originale
-            this.listemunitions.remove(mune);
-            //retire la munition du sac
-            this.getJoueur().getSac().retireInventaire(mune);
+            Munition mune = (Munition) Environnement.getInstance().getJoueur().getInventaire().getUnObjetDeType(Munition.class);
+            Environnement.getInstance().getJoueur().getInventaire().retireInventaire(mune);
 
         } else {
             System.out.println("tu n'as aucune balle");

@@ -9,7 +9,7 @@ public abstract class Projectile extends ObjetMobile {
 
     protected int degats;
 
-    public Projectile(Position position, int direction, int vitesse, String idProjo, int degats) {
+    public Projectile(Position position, int direction, int vitesse, int degats) {
         super(position, vitesse);
         this.idProjo = "E" + id;
         id++;

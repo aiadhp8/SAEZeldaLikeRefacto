@@ -22,7 +22,7 @@ public class Environnement {
     private int width;
 
     private Terrain terrain;
-    private CarteBFS carteBFS;
+    //private CarteBFS carteBFS;
 
     private Joueur joueur;
     private ObservableList<Ennemis> ennemis;
@@ -35,7 +35,7 @@ public class Environnement {
         this.height = height;
         this.width = width;
         this.terrain = new Terrain();
-        this.carteBFS = new CarteBFS();
+        //this.carteBFS = new CarteBFS();
         this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(null));
         this.ennemis = FXCollections.observableArrayList();
         this.objet = FXCollections.observableArrayList();
@@ -115,7 +115,7 @@ public class Environnement {
 
     public void unTour() {
         this.joueur.move();
-        this.carteBFS.miseAJourCarte();
+        //this.carteBFS.miseAJourCarte();
         this.joueur.interact();
         this.updateProjectiles();
 
