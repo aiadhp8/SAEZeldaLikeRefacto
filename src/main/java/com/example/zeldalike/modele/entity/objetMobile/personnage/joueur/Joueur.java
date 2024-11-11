@@ -28,6 +28,10 @@ public class Joueur extends Personnage {
         this.hydrophobe = false;
     }
 
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
+
     public boolean peutSubirCoup() {
         return subirCoup;
     }
@@ -87,7 +91,6 @@ public class Joueur extends Personnage {
 
                 } else if (objet instanceof Munition) {
                     this.inventaire.ajoutInventaire(objet);
-                    this.donnerMunition();
                     System.out.println("Munition ramassée et ajoutée au sac : " + objet);
                 }
                 Environnement.getInstance().sortirObjet(objet);

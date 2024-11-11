@@ -1,6 +1,6 @@
 package com.example.zeldalike.vues;
 
-import com.example.zeldalike.modele.ObjetRecuperables;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
 import javafx.scene.image.ImageView;
 
 public class ObjetVue {
@@ -13,8 +13,8 @@ public class ObjetVue {
         this.file = file;
         this.i = new ImageView(file);
         i.setId(objetRecuperables.getIdObjet());
-        i.translateXProperty().bind(objetRecuperables.getP().xProperty());
-        i.translateYProperty().bind(objetRecuperables.getP().yProperty());
+        i.translateXProperty().bind(objetRecuperables.getPosition().xProperty());
+        i.translateYProperty().bind(objetRecuperables.getPosition().yProperty());
 
     }
 

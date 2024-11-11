@@ -1,6 +1,7 @@
 package com.example.zeldalike.vues;
 
-import com.example.zeldalike.modele.Arme.Arme;
+
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
 import javafx.scene.image.ImageView;
 
 public class ArmeInventaireVue {
@@ -12,8 +13,8 @@ public class ArmeInventaireVue {
         this.arme = arme;
         this.file = file;
         this.i = new ImageView(file);
-        i.translateXProperty().bind(arme.getP().xProperty());
-        i.translateYProperty().bind(arme.getP().yProperty());
+        i.translateXProperty().bind(arme.getPosition().xProperty());
+        i.translateYProperty().bind(arme.getPosition().yProperty());
 
     }
 

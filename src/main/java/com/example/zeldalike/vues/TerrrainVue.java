@@ -2,6 +2,7 @@ package com.example.zeldalike.vues;
 
 import com.example.zeldalike.Main;
 
+import com.example.zeldalike.modele.Environnement;
 import com.example.zeldalike.modele.Terrain;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import javafx.scene.image.Image;
@@ -16,7 +17,7 @@ public class TerrrainVue {
     private final Pane affichageElement;
     private final Terrain terrrain;
 
-    public TerrrainVue(TilePane affichage, Pane affichageElement, Terrain terrrain, Joueur mac) {
+    public TerrrainVue(TilePane affichage, Pane affichageElement, Terrain terrrain) {
         this.affichage = affichage;
         this.affichageElement = affichageElement;
         this.terrrain = terrrain;
@@ -25,26 +26,26 @@ public class TerrrainVue {
         final int decalageX = 2048;
         final int decalageY = 1224;
 
-        mac.getP().xProperty().addListener((obs, old, n) -> {
+        Environnement.getInstance().getJoueur().getPosition().xProperty().addListener((obs, old, n) -> {
             if ((int) n % decalageX > decalageX - zoneTemp) {
                 affichageElement.setTranslateX(affichageElement.getTranslateX() - decalageX);
-                mac.getP().setX(mac.getP().getX() + 2 * zoneTemp);
+                Environnement.getInstance().getJoueur().getPosition().setX(Environnement.getInstance().getJoueur().getPosition().getX() + 2 * zoneTemp);
             } else if ((int) n > decalageX && (int) n % decalageX < zoneTemp) {
                 affichageElement.setTranslateX(affichageElement.getTranslateX() + decalageX);
-                mac.getP().setX(mac.getP().getX() - 2 * zoneTemp);
+                Environnement.getInstance().getJoueur().getPosition().setX(Environnement.getInstance().getJoueur().getPosition().getX() - 2 * zoneTemp);
             }
         });
-        mac.getP().yProperty().addListener((obs, old, n) -> {
+        Environnement.getInstance().getJoueur().getPosition().yProperty().addListener((obs, old, n) -> {
             if ((int) n % decalageY > decalageY - zoneTemp) {
                 affichageElement.setTranslateY(affichageElement.getTranslateY() - decalageY);
-                mac.getP().setY(mac.getP().getY() + 2 * zoneTemp);
+                Environnement.getInstance().getJoueur().getPosition().setY(Environnement.getInstance().getJoueur().getPosition().getY() + 2 * zoneTemp);
             } else if ((int) n > decalageY && (int) n % decalageY < zoneTemp) {
                 affichageElement.setTranslateY(affichageElement.getTranslateY() + decalageY);
-                mac.getP().setY(mac.getP().getY() - 2 * zoneTemp);
+                Environnement.getInstance().getJoueur().getPosition().setY(Environnement.getInstance().getJoueur().getPosition().getY() - 2 * zoneTemp);
             }
         });
-        mac.hpProperty().addListener((obs, old, n) -> {
-            if (mac.getHp() == 0) {
+        Environnement.getInstance().getJoueur().hpProperty().addListener((obs, old, n) -> {
+            if (Environnement.getInstance().getJoueur().getHp() == 0) {
                 affichageElement.setTranslateX(0);
                 affichageElement.setTranslateY(0);
             }
@@ -62,7 +63,7 @@ public class TerrrainVue {
         Random random = new Random(67890);
         this.affichage.setPrefColumns(this.terrrain.getTailleLargeur());
         int diftuiles;
-        for (int i = 0; i < this.terrrain.tailleTerrain(); i++) {
+        for (int i = 0; i < this.terrrain.getTailleTerrain(); i++) {
             diftuiles = random.nextInt();
             switch (this.terrrain.codeCaseI(i)) {
                 case 1:

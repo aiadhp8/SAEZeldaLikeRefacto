@@ -1,10 +1,11 @@
 package com.example.zeldalike.vues;
 
 import com.example.zeldalike.Main;
-import com.example.zeldalike.modele.Arme.Arme;
-import com.example.zeldalike.modele.Arme.Poing;
-import com.example.zeldalike.modele.Arme.gun.Gun;
-import com.example.zeldalike.modele.Joueur;
+
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Poing;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Gun;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -30,26 +31,26 @@ public class ArmeVue {
 
     public void afficherarmeVue(ImageView mac) {
         if (this.joueur.getArme() instanceof Poing) {
-            if (joueur.getPositionPre() == 8) {
+            if (joueur.getDirection() == 8) {
                 armeVue.setImage(poingHaut);
                 armeVue.setVisible(true);
-                armeVue.setX(joueur.getP().xProperty().get());
-                armeVue.setY(joueur.getP().yProperty().get() - 32);
-            } else if (joueur.getPositionPre() == 2) {
+                armeVue.setX(joueur.getPosition().xProperty().get());
+                armeVue.setY(joueur.getPosition().yProperty().get() - 32);
+            } else if (joueur.getDirection() == 2) {
                 armeVue.setImage(poingBas);
                 armeVue.setVisible(true);
-                armeVue.setX(joueur.getP().xProperty().get());
-                armeVue.setY(joueur.getP().yProperty().get() + 32);
-            } else if (joueur.getPositionPre() == 4) {
+                armeVue.setX(joueur.getPosition().xProperty().get());
+                armeVue.setY(joueur.getPosition().yProperty().get() + 32);
+            } else if (joueur.getDirection() == 4) {
                 armeVue.setImage(poingGauche);
                 armeVue.setVisible(true);
-                armeVue.setX(joueur.getP().xProperty().get() - 32);
-                armeVue.setY(joueur.getP().yProperty().get());
-            } else if (joueur.getPositionPre() == 6) {
+                armeVue.setX(joueur.getPosition().xProperty().get() - 32);
+                armeVue.setY(joueur.getPosition().yProperty().get());
+            } else if (joueur.getDirection() == 6) {
                 armeVue.setImage(poingDroit);
                 armeVue.setVisible(true);
-                armeVue.setX(joueur.getP().xProperty().get() + 32);
-                armeVue.setY(joueur.getP().yProperty().get());
+                armeVue.setX(joueur.getPosition().xProperty().get() + 32);
+                armeVue.setY(joueur.getPosition().yProperty().get());
             }
         } else if (this.joueur.getArme() instanceof Gun) {
             // Logique pour afficher l'arme Gun

@@ -69,15 +69,15 @@ public class Inventaire {
         return null;
     }
 
-    public HashMap<String, Integer> getQuantiteTout() {
-        HashMap<String, Integer> quantites = new HashMap<>();
+    public HashMap<ObjetRecuperables, Integer> getQuantiteTout() {
+        HashMap<ObjetRecuperables, Integer> quantites = new HashMap<>();
         int quantitePotion = getQuantiteObjetDeType(PotionVitale.class);
         int quantiteCle = getQuantiteObjetDeType(Clef.class);
         int quantiteMunition = getQuantiteObjetDeType(Munition.class);
 
-        if (quantitePotion > 0) quantites.put("PotionVitale", quantitePotion);
-        if (quantiteCle > 0) quantites.put("Cle", quantiteCle);
-        if (quantiteMunition > 0) quantites.put("Munition", quantiteMunition);
+        if (quantitePotion > 0) quantites.put(getUnObjetDeType(PotionVitale.class), quantitePotion);
+        if (quantiteCle > 0) quantites.put(getUnObjetDeType(Clef.class), quantiteCle);
+        if (quantiteMunition > 0) quantites.put(getUnObjetDeType(Munition.class), quantiteMunition);
 
         return quantites;
     }

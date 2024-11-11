@@ -1,10 +1,10 @@
 package com.example.zeldalike.controlleurs;
 
 import com.example.zeldalike.Main;
-import com.example.zeldalike.modele.Arme.gun.Munition;
-import com.example.zeldalike.modele.ChaussuresHydrophobes;
-import com.example.zeldalike.modele.ObjetRecuperables;
-import com.example.zeldalike.modele.PotionVitale;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ChaussuresHydrophobes;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Munition;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.potion.PotionVitale;
 import com.example.zeldalike.vues.ObjetVue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;

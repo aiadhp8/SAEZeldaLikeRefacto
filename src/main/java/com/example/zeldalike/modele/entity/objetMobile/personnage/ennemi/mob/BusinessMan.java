@@ -3,10 +3,10 @@ package com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.mob;
 import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
 
-public class Macarena extends Mob{
+public class BusinessMan extends Mob {
 
-    public Macarena(Position position) {
-        super(position, 0, 50, 5, null);
+    public BusinessMan(Position position) {
+        super(position, 1, 40, 3, null);
     }
 
     @Override

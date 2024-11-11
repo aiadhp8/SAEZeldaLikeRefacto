@@ -1,6 +1,7 @@
 package com.example.zeldalike.vues;
 
-import com.example.zeldalike.modele.Ennemis;
+
+import com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.Ennemis;
 import javafx.scene.image.ImageView;
 
 public class EnnemisVue {
@@ -12,9 +13,8 @@ public class EnnemisVue {
         this.ennemis = ennemis;
         this.file = file;
         this.i = new ImageView(file);
-        i.setId(ennemis.getIdEnnemi());
-        i.translateXProperty().bind(ennemis.getP().xProperty());
-        i.translateYProperty().bind(ennemis.getP().yProperty());
+        i.translateXProperty().bind(ennemis.getPosition().xProperty());
+        i.translateYProperty().bind(ennemis.getPosition().yProperty());
 
 
     }

@@ -4,12 +4,16 @@ import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.Personnage;
 
 public abstract class Ennemis extends Personnage {
+    private static int id = 0;
+    private final String idEnnemi;
 
     private int def;
     private boolean bouclierActif;
 
     public Ennemis(Position position, int vitesse, int hp, int def) {
         super(position, vitesse, hp);
+        this.idEnnemi = "E" + id;
+        id++;
         this.def = def;
         this.bouclierActif = false;
     }
@@ -33,4 +37,8 @@ public abstract class Ennemis extends Personnage {
     public abstract void désacCompétence();
 
     public void dropObjet() {}
+
+    public String getIdEnnemi() {
+        return idEnnemi;
+    }
 }

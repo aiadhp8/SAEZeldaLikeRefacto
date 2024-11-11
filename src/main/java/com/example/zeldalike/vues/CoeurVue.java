@@ -1,7 +1,7 @@
 package com.example.zeldalike.vues;
 
 import com.example.zeldalike.Main;
-import com.example.zeldalike.modele.Joueur;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -102,8 +102,8 @@ public class CoeurVue {
                 coeurN1.setImage(coeur0);
                 coeurN2.setImage(coeur0);
                 coeurN3.setImage(coeur0);
-                joueur.getP().setX(96);
-                joueur.getP().setY(65);
+                joueur.getPosition().setX(96);
+                joueur.getPosition().setY(65);
                 joueur.setHp(4);
             }
         }

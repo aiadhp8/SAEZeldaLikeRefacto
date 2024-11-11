@@ -1,15 +1,23 @@
 package com.example.zeldalike.vues;
 
 import com.example.zeldalike.Main;
-import com.example.zeldalike.modele.Arme.Arme;
-import com.example.zeldalike.modele.Arme.Poing;
-import com.example.zeldalike.modele.Arme.gun.Gun;
-import com.example.zeldalike.modele.Arme.gun.Munition;
-import com.example.zeldalike.modele.*;
+
+import com.example.zeldalike.modele.Environnement;
+import com.example.zeldalike.modele.entity.Position;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ChaussuresHydrophobes;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.Clef;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Arme;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Poing;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Gun;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Munition;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.potion.PotionVitale;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Inventaire;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventaireVue {
@@ -45,7 +53,7 @@ public class InventaireVue {
         String image = "";
         if (objet instanceof PotionVitale) {
             image = String.valueOf(Main.class.getResource("images/objets/potion.png"));
-        } else if (objet instanceof Cle) {
+        } else if (objet instanceof Clef) {
             image = String.valueOf(Main.class.getResource("images/coins.gif"));
         } else if (objet instanceof Munition) {
             image = String.valueOf(Main.class.getResource("images/marchand.png"));
@@ -67,9 +75,9 @@ public class InventaireVue {
             objets.getChildren().add(obj.getI());
 
         }
-        for (Arme arme : this.inv.getArmespossedees()) {
+        for (ObjetRecuperables arme : this.inv.getListeObjetDeType(Arme.class)) {
             affichage.getChildren().add(new ImageView(this.cases));
-            objets.getChildren().add(new ArmeInventaireVue(arme, getImageArme(arme)).getI());
+            objets.getChildren().add(new ArmeInventaireVue((Arme) arme, getImageArme((Arme) arme)).getI());
         }
 
         if (!affichage.getChildren().isEmpty()) {
@@ -79,7 +87,7 @@ public class InventaireVue {
         this.affichage.setVisible(true);
         this.objets.setVisible(true);
         System.out.println(this.inv);
-        System.out.println(this.inv.getArmespossedees());
+        System.out.println(this.inv.getListeObjetDeType(Arme.class));
 
         //todo reste de la création de l'inventaire
         //todo : appeler inventairevue deja dans la scene normale/ essayer de centrer l'inventaire/A voir
@@ -111,7 +119,7 @@ public class InventaireVue {
     }
 
     public boolean deplacementpossibles(int nbcases) {
-        return this.position + nbcases < this.quantiteactuelle.size() + this.inv.getArmespossedees().size() && this.position + nbcases >= 0;
+        return this.position + nbcases < this.quantiteactuelle.size() + this.inv.getQuantiteObjetDeType(Arme.class) && this.position + nbcases >= 0;
     }
 
     public void sedeplacer(int nbcases) {
@@ -142,7 +150,8 @@ public class InventaireVue {
                 indiceobjet++;
             }
         }
-        for (Arme arme : this.inv.getArmespossedees()) {
+        for (ObjetRecuperables objet : this.inv.getListeObjetDeType(Arme.class)) {
+            Arme arme = (Arme) objet;
             if (indiceobjet == position) {
                 ar = arme;
             } else {
@@ -155,7 +164,7 @@ public class InventaireVue {
             if (this.quantiteactuelle.get(obj) <= 0) {
                 this.quantiteactuelle.remove(obj);
             }
-            if (this.inv.getQuantitePotion() <= 0) {
+            if (this.inv.getQuantiteObjetDeType(PotionVitale.class) <= 0) {
                 if (deplacementpossibles(-1)) {
                     sedeplacer(-1);
                 } else if (deplacementpossibles(1)) {
@@ -166,13 +175,15 @@ public class InventaireVue {
                 deplacerSelect(6);
             }
         } else if (ar instanceof Gun) {
-            Arme pasflingue = this.inv.getJ().getArme();
-            pasflingue.setP(new Position(0, 0));
-            this.inv.getJ().changerArme(this.inv.remplacerArme(pasflingue, 2));
+            Arme pasflingue = Environnement.getInstance().getJoueur().getArme();
+            pasflingue.getPosition().setX(0);
+            pasflingue.getPosition().setY(0);
+            Environnement.getInstance().getJoueur().getInventaire().changerArmeEnMain(2);
         } else if (ar instanceof Poing) {
-            Arme poing = this.inv.getJ().getArme();
-            poing.setP(new Position(0, 0));
-            this.inv.getJ().changerArme(this.inv.remplacerArme(poing, 1));
+            Arme poing = Environnement.getInstance().getJoueur().getArme();
+            poing.getPosition().setX(0);
+            poing.getPosition().setY(0);
+            Environnement.getInstance().getJoueur().getInventaire().changerArmeEnMain(1);
         }
     }
 }

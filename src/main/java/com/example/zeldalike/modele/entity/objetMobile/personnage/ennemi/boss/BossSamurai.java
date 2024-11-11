@@ -1,12 +1,13 @@
-package com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.mob;
+package com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.boss;
 
 import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
 
-public class Macarena extends Mob{
+import java.util.ArrayList;
 
-    public Macarena(Position position) {
-        super(position, 0, 50, 5, null);
+public class BossSamurai extends Boss {
+    public BossSamurai(Position position) {
+        super(position, 0, 500, 2, null);
     }
 
     @Override
