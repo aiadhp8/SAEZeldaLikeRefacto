@@ -2,6 +2,7 @@ package com.example.zeldalike.modele;
 
 import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.ObjetRecuperables;
+import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.Poing;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Munition;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.Personnage;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Inventaire;
@@ -36,7 +37,7 @@ public class Environnement {
         this.width = width;
         this.terrain = new Terrain();
         //this.carteBFS = new CarteBFS();
-        this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(null));
+        this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(new Poing(new Position(0,0,32,32),5)));
         this.ennemis = FXCollections.observableArrayList();
         this.objet = FXCollections.observableArrayList();
         this.projoMunition = FXCollections.observableArrayList();
