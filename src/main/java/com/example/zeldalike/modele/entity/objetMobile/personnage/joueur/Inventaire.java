@@ -39,7 +39,9 @@ public class Inventaire {
     }
 
     public void changerArmeEnMain(int num) {
+
         if (num >= 0 && num < this.articles.size() && this.articles.get(num) instanceof Arme) {
+            System.out.println("là");
             ObjetRecuperables ancienneArme = this.armeEnMain;
             this.armeEnMain = this.articles.get(num);
             this.articles.set(num, ancienneArme);
