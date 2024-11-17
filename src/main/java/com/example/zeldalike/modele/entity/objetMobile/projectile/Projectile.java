@@ -13,7 +13,7 @@ public abstract class Projectile extends ObjetMobile {
 
     public Projectile(Position position, int direction, int vitesse, int degats) {
         super(position, vitesse, new DeplacementLigneDroite());
-        this.idProjo = "E" + id;
+        this.idProjo = "P" + id;
         id++;
         this.degats = degats;
         this.setDirection(direction);
