@@ -39,7 +39,7 @@ public class Environnement {
         terrain = new Terrain();
         this.terrain = terrain;
         this.carteBFS = new CarteBFS(terrain);
-        this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(new Poing(new Position(0,0,32,32),5)));
+        this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(new Poing(new Position(0,0,32,32))));
         //this.joueur = new Joueur(new Position(300,300,32,32), 6,4,new Inventaire(new Poing(new Position(0,0,32,32))));
         Gun gun = new Gun();
         joueur.getInventaire().ajoutInventaire(gun);
