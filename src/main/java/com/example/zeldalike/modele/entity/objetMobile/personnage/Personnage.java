@@ -88,4 +88,20 @@ public abstract class Personnage extends ObjetMobile {
     public abstract void subirDegats(int degats);
 
     public abstract void recevoirSoins(int pv);
+
+    protected void move(int deltaX, int deltaY) {
+        double nouvellePosX = this.getPosition().getX() + deltaX * this.getVitesse();
+        double nouvellePosY = this.getPosition().getY() + deltaY * this.getVitesse();
+
+        int newX = (int) Math.round(nouvellePosX);
+        int newY = (int) Math.round(nouvellePosY);
+
+        if (Environnement.getInstance().getTerrain().estDansTerrain(newX, newY) &&
+                Environnement.getInstance().getTerrain().estAutorisé(newX + this.getWidth(), newY) &&
+                Environnement.getInstance().getTerrain().estAutorisé(newX, newY + this.getHeight())) {
+
+            this.getPosition().setX(newX);
+            this.getPosition().setY(newY);
+        }
+    }
 }

@@ -39,7 +39,7 @@ public class Gun extends Arme {
         if (Environnement.getInstance().getJoueur().getInventaire().getQuantiteObjetDeType(Munition.class) > 0) {
 
             Joueur joueur = Environnement.getInstance().getJoueur();
-            ProjectileMunition projo = new ProjectileMunition(new Position(joueur.getPosition().getX(), joueur.getPosition().getY(), 32, 32), joueur.getDirection());
+            ProjectileMunition projo = new ProjectileMunition(new Position(joueur.getPosition().getX(), joueur.getPosition().getY(), 32, 32), joueur.getDirectionPrecedente());
             Environnement.getInstance().getProjoMunition().add(projo);
 
             Munition mune = (Munition) Environnement.getInstance().getJoueur().getInventaire().getUnObjetDeType(Munition.class);
