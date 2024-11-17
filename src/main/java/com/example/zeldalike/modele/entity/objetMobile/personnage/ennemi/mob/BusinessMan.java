@@ -6,11 +6,12 @@ import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.D
 import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.DeplacementAleatoires;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.DeplacementBFS;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.DeplacementLigneDroite;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi.loot.FabriquePotions;
 
 public class BusinessMan extends Mob {
 
     public BusinessMan(Position position) {
-        super(position, 1, 40, 3, null, new DeplacementAleatoireBFS());
+        super(position, 1, 40, 3, new FabriquePotions(), new DeplacementAleatoireBFS());
     }
 
     @Override
