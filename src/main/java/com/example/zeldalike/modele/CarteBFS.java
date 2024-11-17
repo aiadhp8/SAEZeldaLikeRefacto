@@ -1,75 +1,75 @@
-//package com.example.zeldalike.modele;
+package com.example.zeldalike.modele;
 //
-//import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 //
-//import java.util.ArrayList;
-//import java.util.LinkedList;
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 //
-//public class CarteBFS {
+public class CarteBFS {
 //
-//    private static final int PASSAGE_INTERDIT = 64;
-//    private final int[] carte;
-//    private final int largeur;
-//    private final int distanceMax;
+    private static final int PASSAGE_INTERDIT = 64;
+    private final int[] carte;
+    private final int largeur;
+    private final int distanceMax;
 //
-//    public CarteBFS() {
-//        this.carte = new int[Environnement.getInstance().getTerrain().getTailleTerrain()];
-//        this.distanceMax = 11;
-//        this.largeur = Environnement.getInstance().getTerrain().getTailleLargeur();
-//        reinitCarte();
-//    }
+    public CarteBFS(Terrain t) {
+        this.carte = new int[t.getTailleTerrain()];
+        this.distanceMax = 11;
+        this.largeur = t.getTailleLargeur();
+        reinitCarte(t);
+    }
 //
-//    public void reinitCarte() {
-//        for (int i = 0; i < this.carte.length; i++) {
-//            this.carte[i] = Environnement.getInstance().getTerrain().codeCaseI(i) == 2 ? distanceMax + 1 : PASSAGE_INTERDIT;
-//        }
-//    }
+    public void reinitCarte(Terrain t) {
+        for (int i = 0; i < this.carte.length; i++) {
+            this.carte[i] = t.codeCaseI(i) == 2 ? distanceMax + 1 : PASSAGE_INTERDIT;
+        }
+    }
 //
-//    public void miseAJourCarte() {
-//        reinitCarte();
+    public void miseAJourCarte() {
+        reinitCarte(Environnement.getInstance().getTerrain());
+
+        int startX = Environnement.getInstance().getJoueur().getPosition().getX() + Environnement.getInstance().getJoueur().getPosition().getHeight();
+        int startY = Environnement.getInstance().getJoueur().getPosition().getY() + Environnement.getInstance().getJoueur().getPosition().getWidth();
+        int startIdx = Environnement.getInstance().getTerrain().getIndiceCaseSousPosition(startX, startY);
+
+        LinkedList<Integer> marques = new LinkedList<>();
+        LinkedList<Integer> temp = new LinkedList<>();
+        marques.addFirst(startIdx);
+
+        int distance = 0;
+        while (distance < distanceMax) {
+            transferElements(marques, temp);
+            processCurrentDistance(temp, marques, distance);
+            distance++;
+        }
+    }
 //
-//        int startX = Environnement.getInstance().getJoueur().getPosition().getX() + Environnement.getInstance().getJoueur().getPosition().getHeight();
-//        int startY = Environnement.getInstance().getJoueur().getPosition().getY() + Environnement.getInstance().getJoueur().getPosition().getWidth();
-//        int startIdx = Environnement.getInstance().getTerrain().getIndiceCaseSousPosition(startX, startY);
+    private void transferElements(LinkedList<Integer> source, LinkedList<Integer> target) {
+        while (!source.isEmpty()) {
+            target.add(source.pollLast());
+        }
+    }
 //
-//        LinkedList<Integer> marques = new LinkedList<>();
-//        LinkedList<Integer> temp = new LinkedList<>();
-//        marques.addFirst(startIdx);
+    private void processCurrentDistance(LinkedList<Integer> temp, LinkedList<Integer> marques, int distance) {
+        while (!temp.isEmpty()) {
+            int current = temp.pollLast();
+            this.carte[current] = distance;
+            addValidAdjacentIndices(marques, temp, current, distance);
+        }
+    }
 //
-//        int distance = 0;
-//        while (distance < distanceMax) {
-//            transferElements(marques, temp);
-//            processCurrentDistance(temp, marques, distance);
-//            distance++;
-//        }
-//    }
+    private void addValidAdjacentIndices(LinkedList<Integer> marques, LinkedList<Integer> temp, int current, int distance) {
+        for (int indice : Environnement.getInstance().getTerrain().getIndicesAdjacentsAvecIndice(current)) {
+            if (isIndiceEligible(marques, temp, indice, distance)) {
+                marques.addFirst(indice);
+            }
+        }
+    }
 //
-//    private void transferElements(LinkedList<Integer> source, LinkedList<Integer> target) {
-//        while (!source.isEmpty()) {
-//            target.add(source.pollLast());
-//        }
-//    }
-//
-//    private void processCurrentDistance(LinkedList<Integer> temp, LinkedList<Integer> marques, int distance) {
-//        while (!temp.isEmpty()) {
-//            int current = temp.pollLast();
-//            this.carte[current] = distance;
-//            addValidAdjacentIndices(marques, temp, current, distance);
-//        }
-//    }
-//
-//    private void addValidAdjacentIndices(LinkedList<Integer> marques, LinkedList<Integer> temp, int current, int distance) {
-//        for (int indice : Environnement.getInstance().getTerrain().getIndicesAdjacentsAvecIndice(current)) {
-//            if (isIndiceEligible(marques, temp, indice, distance)) {
-//                marques.addFirst(indice);
-//            }
-//        }
-//    }
-//
-//    private boolean isIndiceEligible(LinkedList<Integer> marques, LinkedList<Integer> temp, int indice, int distance) {
-//        return !marques.contains(indice) && !temp.contains(indice) && this.carte[indice] > distance && this.carte[indice] != PASSAGE_INTERDIT;
-//    }
+    private boolean isIndiceEligible(LinkedList<Integer> marques, LinkedList<Integer> temp, int indice, int distance) {
+        return !marques.contains(indice) && !temp.contains(indice) && this.carte[indice] > distance && this.carte[indice] != PASSAGE_INTERDIT;
+    }
 //
 //    public int getValeurCaseI(int i) {
 //        return this.carte[i];
@@ -127,4 +127,4 @@
 //        }
 //        return plusPetits;
 //    }
-//}
+}
