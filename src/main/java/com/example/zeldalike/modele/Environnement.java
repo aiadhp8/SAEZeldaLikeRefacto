@@ -37,7 +37,8 @@ public class Environnement {
         this.width = width;
         this.terrain = new Terrain();
         //this.carteBFS = new CarteBFS();
-        this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(new Poing(new Position(0,0,32,32),5)));
+        //this.joueur = new Joueur(new Position(96,65,32,32), 6,4,new Inventaire(new Poing(new Position(0,0,32,32),5)));
+        this.joueur = new Joueur(new Position(300,300,32,32), 6,4,new Inventaire(new Poing(new Position(0,0,32,32))));
         this.ennemis = FXCollections.observableArrayList();
         this.objet = FXCollections.observableArrayList();
         this.projoMunition = FXCollections.observableArrayList();

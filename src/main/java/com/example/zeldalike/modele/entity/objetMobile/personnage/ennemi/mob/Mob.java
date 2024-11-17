@@ -11,4 +11,9 @@ public abstract class Mob extends Ennemis {
     public Mob(Position position, int vitesse, int hp, int def, ObjetRecuperables loot) {
         super(position, vitesse, hp, def);
     }
+
+    public void subirDegats(int degats) {
+        this.setHp(this.getHp() - degats);
+        System.out.println(getHp());
+    }
 }

@@ -31,22 +31,22 @@ public class ArmeVue {
 
     public void afficherarmeVue(ImageView mac) {
         if (this.joueur.getArme() instanceof Poing) {
-            if (joueur.getDirection() == 8) {
+            if (joueur.getDirectionPrecedente() == 8) {
                 armeVue.setImage(poingHaut);
                 armeVue.setVisible(true);
                 armeVue.setX(joueur.getPosition().xProperty().get());
                 armeVue.setY(joueur.getPosition().yProperty().get() - 32);
-            } else if (joueur.getDirection() == 2) {
+            } else if (joueur.getDirectionPrecedente() == 2) {
                 armeVue.setImage(poingBas);
                 armeVue.setVisible(true);
                 armeVue.setX(joueur.getPosition().xProperty().get());
                 armeVue.setY(joueur.getPosition().yProperty().get() + 32);
-            } else if (joueur.getDirection() == 4) {
+            } else if (joueur.getDirectionPrecedente() == 4) {
                 armeVue.setImage(poingGauche);
                 armeVue.setVisible(true);
                 armeVue.setX(joueur.getPosition().xProperty().get() - 32);
                 armeVue.setY(joueur.getPosition().yProperty().get());
-            } else if (joueur.getDirection() == 6) {
+            } else if (joueur.getDirectionPrecedente() == 6) {
                 armeVue.setImage(poingDroit);
                 armeVue.setVisible(true);
                 armeVue.setX(joueur.getPosition().xProperty().get() + 32);
