@@ -10,8 +10,8 @@ import com.example.zeldalike.modele.entity.objetMobile.personnage.joueur.Joueur;
 import java.util.ArrayList;
 
 public class Poing extends Arme {
-    public Poing(Position position, int attaque) {
-        super(position, attaque);
+    public Poing(Position position) {
+        super(position, 20);
     }
 
 

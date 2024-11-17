@@ -23,10 +23,6 @@ public class BusinessMan extends Mob {
 
     }
 
-    @Override
-    public void subirDegats(int degats) {
-
-    }
 
     @Override
     public void recevoirSoins(int pv) {

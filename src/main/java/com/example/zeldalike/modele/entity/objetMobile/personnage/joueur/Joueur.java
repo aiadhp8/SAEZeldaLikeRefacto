@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class Joueur extends Personnage {
 
+    private int directionPrecedente;
+
     private Inventaire inventaire;
 
     private boolean interaction;
@@ -27,6 +29,14 @@ public class Joueur extends Personnage {
         this.inventaire = inventaire;
         this.interaction = false;
         this.hydrophobe = false;
+    }
+
+    public int getDirectionPrecedente() {
+        return directionPrecedente;
+    }
+
+    public void setDirectionPrecedente(int position) {
+        directionPrecedente = position;
     }
 
     public Inventaire getInventaire() {
@@ -99,5 +109,14 @@ public class Joueur extends Personnage {
             interaction = false;
         }
 
+    }
+
+    @Override
+    public void move() {
+        if (this.getDirection() != directionPrecedente && this.getDirection() != 0 && this.getDirection() != 5) {
+            setDirectionPrecedente(this.getDirection());
+
+        }
+        super.move();
     }
 }

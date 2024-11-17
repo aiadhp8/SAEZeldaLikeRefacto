@@ -152,6 +152,7 @@ public class InventaireVue {
         }
         for (ObjetRecuperables objet : this.inv.getListeObjetDeType(Arme.class)) {
             Arme arme = (Arme) objet;
+            System.out.println(arme);
             if (indiceobjet == position) {
                 ar = arme;
             } else {
@@ -178,12 +179,12 @@ public class InventaireVue {
             Arme pasflingue = Environnement.getInstance().getJoueur().getArme();
             pasflingue.getPosition().setX(0);
             pasflingue.getPosition().setY(0);
-            Environnement.getInstance().getJoueur().getInventaire().changerArmeEnMain(2);
+            Environnement.getInstance().getJoueur().getInventaire().changerArmeEnMain(inv.getArticles().indexOf(ar));
         } else if (ar instanceof Poing) {
             Arme poing = Environnement.getInstance().getJoueur().getArme();
             poing.getPosition().setX(0);
             poing.getPosition().setY(0);
-            Environnement.getInstance().getJoueur().getInventaire().changerArmeEnMain(1);
+            Environnement.getInstance().getJoueur().getInventaire().changerArmeEnMain(inv.getArticles().indexOf(ar));
         }
     }
 }
