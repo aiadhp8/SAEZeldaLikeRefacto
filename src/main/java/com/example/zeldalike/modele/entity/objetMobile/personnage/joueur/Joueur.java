@@ -9,6 +9,7 @@ import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.A
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.arme.gun.Munition;
 import com.example.zeldalike.modele.entity.objetImmobile.objetRecuperable.potion.PotionVitale;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.Personnage;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.DeplacementLigneDroite;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class Joueur extends Personnage {
 
 
     public Joueur(Position position, int vitesse, int hp, Inventaire inventaire) {
-        super(position, vitesse, hp);
+        super(position, vitesse, hp, new DeplacementLigneDroite());
         this.inventaire = inventaire;
         this.interaction = false;
         this.hydrophobe = false;

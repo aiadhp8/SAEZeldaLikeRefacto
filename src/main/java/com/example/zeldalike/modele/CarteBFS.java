@@ -15,7 +15,7 @@ public class CarteBFS {
 //
     public CarteBFS(Terrain t) {
         this.carte = new int[t.getTailleTerrain()];
-        this.distanceMax = 11;
+        this.distanceMax = 8;
         this.largeur = t.getTailleLargeur();
         reinitCarte(t);
     }
@@ -29,8 +29,8 @@ public class CarteBFS {
     public void miseAJourCarte() {
         reinitCarte(Environnement.getInstance().getTerrain());
 
-        int startX = Environnement.getInstance().getJoueur().getPosition().getX() + Environnement.getInstance().getJoueur().getPosition().getHeight();
-        int startY = Environnement.getInstance().getJoueur().getPosition().getY() + Environnement.getInstance().getJoueur().getPosition().getWidth();
+        int startX = Environnement.getInstance().getJoueur().getPosition().getX();// + Environnement.getInstance().getJoueur().getPosition().getHeight();
+        int startY = Environnement.getInstance().getJoueur().getPosition().getY();// + Environnement.getInstance().getJoueur().getPosition().getWidth();
         int startIdx = Environnement.getInstance().getTerrain().getIndiceCaseSousPosition(startX, startY);
 
         LinkedList<Integer> marques = new LinkedList<>();
@@ -71,9 +71,9 @@ public class CarteBFS {
         return !marques.contains(indice) && !temp.contains(indice) && this.carte[indice] > distance && this.carte[indice] != PASSAGE_INTERDIT;
     }
 //
-//    public int getValeurCaseI(int i) {
-//        return this.carte[i];
-//    }
+    public int getValeurCaseI(int i) {
+        return this.carte[i];
+    }
 //
 //    @Override
 //    public String toString() {
@@ -91,23 +91,23 @@ public class CarteBFS {
 //        return sb.toString();
 //    }
 //
-//    public int indiceMinimumVal(int indicePosition) {
-//        List<Integer> adj = Environnement.getInstance().getTerrain().getIndicesAdjacentsAvecIndice(indicePosition);
-//        return adj.isEmpty() ? -1 : findIndiceWithMinimumValue(adj);
-//    }
+    public int indiceMinimumVal(int indicePosition) {
+        List<Integer> adj = Environnement.getInstance().getTerrain().getIndicesAdjacentsAvecIndice(indicePosition);
+        return adj.isEmpty() ? -1 : findIndiceWithMinimumValue(adj);
+    }
 //
-//    private int findIndiceWithMinimumValue(List<Integer> indices) {
-//        int minIndice = indices.get(0);
-//        int minValue = carte[minIndice];
-//
-//        for (int indice : indices) {
-//            if (carte[indice] < minValue) {
-//                minValue = carte[indice];
-//                minIndice = indice;
-//            }
-//        }
-//        return minIndice;
-//    }
+    private int findIndiceWithMinimumValue(List<Integer> indices) {
+        int minIndice = indices.get(0);
+        int minValue = carte[minIndice];
+
+        for (int indice : indices) {
+            if (carte[indice] < minValue) {
+                minValue = carte[indice];
+                minIndice = indice;
+            }
+        }
+        return minIndice;
+    }
 //
 //    public int minimumValdesCases(ArrayList<Integer> cases) {
 //        if (cases.isEmpty()) {

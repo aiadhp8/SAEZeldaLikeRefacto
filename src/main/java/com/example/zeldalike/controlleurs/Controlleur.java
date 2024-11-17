@@ -114,6 +114,10 @@ public class Controlleur implements Initializable {
         env.getProjoMunition().addListener(observateurProjectile);
         Macarena maca = new Macarena(new Position(3175, 515, 32,32));
         env.ajouterEnnemis(maca);
+
+        BusinessMan test = new BusinessMan(new Position(300, 100, 32,32));
+        env.ajouterEnnemis(test);
+
         BusinessMan man1 = new BusinessMan(new Position(640, 640, 32,32));
         env.ajouterEnnemis(man1);
         BusinessMan man2 = new BusinessMan(new Position(3175, 560,32,32));

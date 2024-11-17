@@ -2,6 +2,7 @@ package com.example.zeldalike.modele.entity.objetMobile;
 
 import com.example.zeldalike.modele.Environnement;
 import com.example.zeldalike.modele.entity.*;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.StrategieDeplacements;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -10,10 +11,13 @@ public abstract class ObjetMobile extends Entity {
     private final IntegerProperty direction;
     private int vitesse;
 
-    public ObjetMobile(Position position, int vitesse) {
+    private StrategieDeplacements deplacement;
+
+    public ObjetMobile(Position position, int vitesse, StrategieDeplacements deplac) {
         super(position);
         this.direction = new SimpleIntegerProperty();
         this.vitesse = vitesse;
+        this.deplacement = deplac;
     }
 
     public int getDirection() {
@@ -32,8 +36,16 @@ public abstract class ObjetMobile extends Entity {
         return vitesse;
     }
 
+    public StrategieDeplacements getDeplacement() {
+        return deplacement;
+    }
+
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
+    }
+
+    public void changerDirection(){
+        this.direction.set(this.deplacement.nouvelleDirection(this.direction.get(), this.getPosition()));
     }
 
 

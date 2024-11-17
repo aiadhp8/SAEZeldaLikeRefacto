@@ -2,6 +2,7 @@ package com.example.zeldalike.modele.entity.objetMobile.personnage.ennemi;
 
 import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.Personnage;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.StrategieDeplacements;
 
 public abstract class Ennemis extends Personnage {
     private static int id = 0;
@@ -10,12 +11,13 @@ public abstract class Ennemis extends Personnage {
     private int def;
     private boolean bouclierActif;
 
-    public Ennemis(Position position, int vitesse, int hp, int def) {
-        super(position, vitesse, hp);
+    public Ennemis(Position position, int vitesse, int hp, int def, StrategieDeplacements deplac) {
+        super(position, vitesse, hp, deplac);
         this.idEnnemi = "E" + id;
         id++;
         this.def = def;
         this.bouclierActif = false;
+        setDirection(6);
     }
 
     public boolean isBouclierActif() {
@@ -30,7 +32,10 @@ public abstract class Ennemis extends Personnage {
         this.bouclierActif = bouclierActif;
     }
 
-    public void agir(){}
+    public void agir(){
+        changerDirection();
+        move();
+    }
 
     public abstract void compétence();
 

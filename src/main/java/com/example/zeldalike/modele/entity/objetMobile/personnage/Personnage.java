@@ -3,6 +3,7 @@ package com.example.zeldalike.modele.entity.objetMobile.personnage;
 import com.example.zeldalike.modele.Environnement;
 import com.example.zeldalike.modele.entity.Position;
 import com.example.zeldalike.modele.entity.objetMobile.ObjetMobile;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.StrategieDeplacements;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -10,8 +11,8 @@ public abstract class Personnage extends ObjetMobile {
     
     private IntegerProperty hp;
     
-    public Personnage(Position position, int vitesse, int hp) {
-        super(position, vitesse);
+    public Personnage(Position position, int vitesse, int hp, StrategieDeplacements deplac) {
+        super(position, vitesse, deplac);
         this.hp = new SimpleIntegerProperty(hp);
     }
 
