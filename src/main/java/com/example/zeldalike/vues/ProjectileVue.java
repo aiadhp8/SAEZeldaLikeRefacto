@@ -13,6 +13,7 @@ public class ProjectileVue {
         this.projo = projo;
         this.file = file;
         this.i = new ImageView(file);
+        i.setId(projo.getIdProjo());
         i.translateXProperty().bind(projo.getPosition().xProperty());
         i.translateYProperty().bind(projo.getPosition().yProperty());
     }

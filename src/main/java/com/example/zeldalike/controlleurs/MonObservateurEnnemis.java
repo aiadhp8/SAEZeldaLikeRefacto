@@ -40,7 +40,8 @@ public class MonObservateurEnnemis implements ListChangeListener<Ennemis> {
 
             }
             for (Ennemis mort : change.getRemoved()) {
-                this.panneauDeJeu.getChildren().remove(this.panneauDeJeu.lookup("#" + mort.getIdEnnemi()));
+                System.out.println(this.panneauDeJeu.getChildren().remove(this.panneauDeJeu.lookup("#" + mort.getIdEnnemi())));
+                System.out.println("personnage enlevé");
             }
         }
     }

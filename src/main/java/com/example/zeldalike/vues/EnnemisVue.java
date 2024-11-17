@@ -13,6 +13,7 @@ public class EnnemisVue {
         this.ennemis = ennemis;
         this.file = file;
         this.i = new ImageView(file);
+        i.setId(ennemis.getIdEnnemi());
         i.translateXProperty().bind(ennemis.getPosition().xProperty());
         i.translateYProperty().bind(ennemis.getPosition().yProperty());
 
