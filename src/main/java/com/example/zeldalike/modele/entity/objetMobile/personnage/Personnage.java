@@ -11,8 +11,8 @@ public abstract class Personnage extends ObjetMobile {
     
     private IntegerProperty hp;
     
-    public Personnage(Position position, int vitesse, int hp, StrategieDeplacements deplac) {
-        super(position, vitesse, deplac);
+    public Personnage(Position position, int vitesse, int hp) {
+        super(position, vitesse);
         this.hp = new SimpleIntegerProperty(hp);
     }
 

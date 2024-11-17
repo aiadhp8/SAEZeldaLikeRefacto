@@ -25,7 +25,7 @@ public class Joueur extends Personnage {
 
 
     public Joueur(Position position, int vitesse, int hp, Inventaire inventaire) {
-        super(position, vitesse, hp, new DeplacementLigneDroite());
+        super(position, vitesse, hp);
         this.inventaire = inventaire;
         this.interaction = false;
         this.hydrophobe = false;

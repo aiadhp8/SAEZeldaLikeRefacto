@@ -3,6 +3,7 @@ package com.example.zeldalike.modele.entity.objetMobile.projectile;
 import com.example.zeldalike.modele.Environnement;
 import com.example.zeldalike.modele.entity.objetMobile.ObjetMobile;
 import com.example.zeldalike.modele.entity.*;
+import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.DeplacementAleatoires;
 import com.example.zeldalike.modele.entity.objetMobile.personnage.deplacements.DeplacementLigneDroite;
 
 public abstract class Projectile extends ObjetMobile {
@@ -12,7 +13,7 @@ public abstract class Projectile extends ObjetMobile {
     protected int degats;
 
     public Projectile(Position position, int direction, int vitesse, int degats) {
-        super(position, vitesse, new DeplacementLigneDroite());
+        super(position, vitesse);
         this.idProjo = "P" + id;
         id++;
         this.degats = degats;

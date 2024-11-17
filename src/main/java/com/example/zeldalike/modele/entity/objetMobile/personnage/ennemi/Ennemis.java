@@ -10,13 +10,15 @@ public abstract class Ennemis extends Personnage {
 
     private int def;
     private boolean bouclierActif;
+    private StrategieDeplacements deplacement;
 
     public Ennemis(Position position, int vitesse, int hp, int def, StrategieDeplacements deplac) {
-        super(position, vitesse, hp, deplac);
+        super(position, vitesse, hp);
         this.idEnnemi = "E" + id;
         id++;
         this.def = def;
         this.bouclierActif = false;
+        deplacement = deplac;
         setDirection(6);
     }
 
@@ -30,6 +32,10 @@ public abstract class Ennemis extends Personnage {
 
     public void setBouclierActif(boolean bouclierActif) {
         this.bouclierActif = bouclierActif;
+    }
+
+    public void changerDirection(){
+        this.setDirection(this.deplacement.nouvelleDirection(this.getDirection(), this.getPosition()));
     }
 
     public void agir(){

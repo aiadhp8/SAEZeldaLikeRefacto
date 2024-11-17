@@ -11,13 +11,11 @@ public abstract class ObjetMobile extends Entity {
     private final IntegerProperty direction;
     private int vitesse;
 
-    private StrategieDeplacements deplacement;
 
-    public ObjetMobile(Position position, int vitesse, StrategieDeplacements deplac) {
+    public ObjetMobile(Position position, int vitesse) {
         super(position);
         this.direction = new SimpleIntegerProperty();
         this.vitesse = vitesse;
-        this.deplacement = deplac;
     }
 
     public int getDirection() {
@@ -36,17 +34,11 @@ public abstract class ObjetMobile extends Entity {
         return vitesse;
     }
 
-    public StrategieDeplacements getDeplacement() {
-        return deplacement;
-    }
-
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
 
-    public void changerDirection(){
-        this.direction.set(this.deplacement.nouvelleDirection(this.direction.get(), this.getPosition()));
-    }
+
 
 
     public void move() {
