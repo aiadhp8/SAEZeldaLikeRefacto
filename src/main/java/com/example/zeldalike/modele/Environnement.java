@@ -33,7 +33,7 @@ public class Environnement {
 
     private int compteur;
 
-    public Environnement(int height, int width) {
+    private Environnement(int height, int width) {
         this.height = height;
         this.width = width;
         terrain = new Terrain();
